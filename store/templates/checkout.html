@@ -1,0 +1,157 @@
+{# Checkout template #}
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% include 'navbar.html' %}
+
+{% block title %}SunsetMusicStore | Validation{% endblock %}
+
+{% block body %}
+      {# BEGIN:ORDER #}
+      <div class="row mb-3">
+        <h1 id=category>Validation</h1>
+      </div>
+      <div class="row mb-2">
+        <div>
+          <a class="btn btn-outline-warning" href="{% url 'cart' %}">&#x2190;  Retour au caddie</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div>
+            <div>
+              <h3 class="rounded text-light" id="product">Votre commande</h3>
+            </div>
+            <hr>
+            <ul class="list-group list-group-flush shadow mb-3" id="checkout-list">
+              {% for item in details %}
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <img class="img-fluid" width=50 src="{% static item.product.pic_static_path %}">
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <span class="me-auto">{{ item.product.name }}</span><br>
+                    <span><b id="digit">{{ item.total|floatformat:2 }} &euro;</b></span>
+                  </div>
+                  <div>
+                    <span class="badge rounded-pill bg-danger" id="digit">&times; {{ item.quantity }}</span>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+            <ul class="list-group list-group-flush shadow mb-3">
+              <li class="list-group-item bg-warning">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    Nombre d'articles : <span id="digit">{{ itemcount }}</span>
+                  </div>
+                  <div>
+                    <h5>Total : <span id="digit">{{ total|floatformat:2 }} &euro;</span></h5>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {# END:ORDER #}
+
+        {# BEGIN:ADDRESSES #}
+        <div class="col-lg-6">
+          <div>
+          {# BEGIN:HAS-ADDRESSES #}
+          {% if user.billing_address and user.shipping_address %}
+          <form method="POST">
+              {% csrf_token %}
+              <div>
+                <p>Facturation :</p>
+                  {{ address_form.billing_address|add_css:'form-select mb-3' }}
+                <hr>
+                <p>Livraison :</p>
+                  {{ address_form.shipping_address|add_css:'form-select mb-3' }}
+              </div>
+              <button class="btn btn-success {% if not user.billing_address or not user.shipping_address %}disabled{% endif %}" type="submit" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                <i class="fas fa-credit-card"></i>  Procéder au paiement
+              </button>
+            </form>
+          </div>
+          {# END:HAS-ADDRESSES #}
+
+          {% else %}
+
+          {# BEGIN:ADD-ADRESSES #}
+          <form method="POST">
+            {% csrf_token %}
+            <div>
+              {% if not user.has_address %}
+              <div class="text-danger">
+                <i class="fas fa-circle-exclamation"></i>  Votre profil ne contient pas d'adresse
+              </div>
+              {% endif %}
+              {% if not user.billing_address or not user.shipping_address %}
+              <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    {% if address_form.non_field_errors %}
+                    <div>
+                    {% for err in address_form.non_field_errors %}
+                      {{ err }}
+                    {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% if not user.shipping_address %}
+                  Livraison
+                  {% elif not user.billing_address %}
+                  Facturation
+                  {% endif %}
+                </div>
+                <div class="card-body">
+                  <div class="mb-2">
+                    {{ address_form.title.errors }}
+                    {{ address_form.title|add_css:'form-control shadow-none' }}
+                  </div>
+                  <div class="mb-2">
+                    {{ address_form.address1.errors }}
+                    {{ address_form.address1|add_css:'form-control shadow-none' }}
+                  </div>
+                  <div class="mb-2">
+                    {{ address_form.address2.errors }}
+                    {{ address_form.address2|add_css:'form-control shadow-none' }}
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="mb-2">
+                        {{ address_form.zipcode.errors }}
+                        {{ address_form.zipcode|add_css:'form-control shadow-none' }}
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-2">
+                        {{ address_form.city.errors }}
+                        {{ address_form.city|add_css:'form-control shadow-none' }}
+                      </div>
+                    </div>
+                  </div>
+                  {% if not user.billing_address and not user.shipping_address %}
+                  <div class="form-check text-warning">
+                    {{ address_form.billing|add_css:'form-check-input bg-warning' }}
+                    <b class="small">Utiliser cette adresse pour la facturation également</b>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-warning" type="submit">Ajouter adresse</button>
+                </div>
+              {% endif %}
+              </div>
+            </div>
+          </form>
+          {% endif %}
+          <hr>
+          <small><i class="fas fa-user-pen"></i> Vous pouvez gérer vos adresses dans le menu utilisateur</small>
+        </div>
+        <hr>
+      </div>
+    </div>
+{% endblock %}

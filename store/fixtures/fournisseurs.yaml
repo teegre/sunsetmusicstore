@@ -1,0 +1,13 @@
+# FOURNISSEURS
+- model: gv_app.Supplier
+  pk: 1
+  fields:
+    uid: 123456789
+    name: Fender Musical Instruments Corp.
+    shortname: Fender
+    address: 17600 N. Perimeter Drive, Suite 100
+    zipcode: 85255
+    city: Scottsdale, AZ
+    phone: 8008569801
+    email: consumerrelations@fender.com
+    pic: gv_app/static/gv_app/fender.gif

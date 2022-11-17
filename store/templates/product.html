@@ -1,0 +1,80 @@
+{# Product template #}
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}SunsetMusicStore | {{ product.name }}{% endblock %}
+{% block header %}
+<!-- Breadcrumb -->
+{% include 'breadcrumb.html' with categories=categories parent=parent ancestors=ancestors %}
+{% endblock %}
+
+{%block body %}
+<div class="row mb-3">
+  <h2 class="rounded" id="product">{{ product.name }}</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <img class="img-fluidpfloat-left" src="{% static product.supplier.pic_static_path %}">
+    <img class="img-fluid" src="{% static product.pic_static_path %}">
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header" id="card-title">
+        <div class="fs-5">
+          Référence : <span id="digit">{{ product.ref }}</span>
+        </div>
+      </div>
+      <div class="card-body" id="card-body">
+        <div class="d-flex align-items-center">
+          <div class="me-auto">
+            <b class="fs-2" id="digit">{{ product.price|product_vat:user|floatformat:2 }} &euro;
+            <span class="small">{% if user.business_customer %}HT{% else %}TTC{% endif %}</span>
+            </b>
+          </div>
+          {% with count=request|cart_product_count:product.ref %}
+          {% if count > 0 %}
+          <div>
+            <span class="badge rounded-pill bg-dark" id="digit">
+              <i class="fas fa-cart-shopping"></i> &times; {{ request|cart_product_count:product.ref }}
+            </span>
+          </div>
+          {% endif %}
+          {% endwith %}
+        </div>
+        <div class="row mb-2">
+          <div>
+            <a href="#description" class="btn btn-sm btn-outline btn-success">Lire la description du produit</a>
+          </div>
+        </div>
+        <div class="card-text">
+          <ul class="fs-6">
+            {% if product.price > 48 %}
+            <li>Livraison gratuite</li>
+            {% endif %}
+            <li>Facilités de paiement avec <a href="#"><b>PayForever&hearts;&reg;</b></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer border d-flex align-items-center justify-content-evenly" id="card-footer">
+        <a
+          href="{% url 'add-product' product.ref %}"
+          class="btn btn-dark {% if not product.active %}disabled{% endif %}">
+          {% if product.active %}
+          <i class="fas fa-cart-plus"></i>
+          Ajouter au caddie
+          {% else %}
+          Indisponible
+          {% endif %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <section id="description">
+      {{ product.desc|safe }}
+    </section>
+  </div>
+</div>
+{% endblock %}

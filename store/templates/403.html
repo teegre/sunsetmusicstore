@@ -1,0 +1,21 @@
+{# 403 template #}
+{% extends 'base.html' %}
+{% block body %}
+<h1 class="display-1">&#128576; <b>403</b></h1>
+<hr>
+<div class="p-5 mb-4 bg-danger rounded-3">
+  <div class="container-fluid py-5">
+    <div class="row mb-5">
+      <p class="fs-5">
+      {% if exception %}
+        {{ exception|safe }}
+      {% else %}
+        <h2>&#128574 Comment êtes-vous arrivé ici ?</h2>
+        L'accès est refusé.
+      {% endif %}
+      </p>
+    </div>
+      <a class="btn btn-warning" href="{% url 'index' %}">Retourner à l'accueil</a>
+  </div>
+</div>
+{% endblock %}

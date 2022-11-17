@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}SunsetMusicStore | Caddie{% endblock %}
+{% block body %}
+  <div class="row mb-3">
+    <h1 id="category">Commande</h1>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-bordered table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Produit</th>
+          <th class="text-end">Prix unitaire</th>
+          <th class="text-end">Quantité</th>
+          <th class="text-end">Total</th>
+          <th class="text-center">-</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for item in details %}
+        <tr>
+          <td>{{ item.product.ref }}</td>
+          <td><img src="{% static item.product.category.icon %}">  <a href="{% url 'product' item.product.category.slug item.product.category.id item.product.ref %}">{{ item.product.name }}</a></td>
+          <td class="text-end">{{ item.product.price|product_vat:user|floatformat:2 }} &euro;</td>
+          <td class="text-end">
+            <div>
+              <a class="btn btn-sm" href="{% url 'dec-quantity' item.product.ref %}"><i class="fas fa-caret-left"></i></a>
+              {{ item.quantity }}
+              <a class="btn btn-sm" href="{% url 'inc-quantity' item.product.ref %}"><i class="fas fa-caret-right"></i></a>
+            </div>
+          </td>
+          {# <td class="text-end">{% widthratio item.product.price 1 item.quantity %} €</td> #}
+          <td class="text-end">{{ item.total|floatformat:2 }} &euro;</td>
+          <td class="text-center"><a class="btn btn-sm btn-danger" href="{% url 'remove-product' item.product.ref %}"><i class="fas fa-trash-can"></i></a></td>
+        </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6" class="fs-2 text-center ">
+          &#128546; <span class="text-muted">C'est vide...</span>
+          <a href="{% url 'index' %}" class="btn btn-sm btn-success">Continuer vos achats</a>
+        </td>
+      </tr>
+    {% endfor %}
+      </tbody>
+    {% if details %}
+      <tfoot>
+        <tr>
+          <td colspan="6" class="text-end fs-3"><strong>Total : <span id="digit">{{ total|floatformat:2 }} &euro;</span></strong></td>
+        </tr>
+        <tr>
+          <td colspan="6" class="text-end" fs-3><small>Dont TVA : <span id="digit">{{ totalvat|floatformat:2 }} &euro;</span></small></td>
+        </tr>
+      </tfoot>
+    </table>
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-success me-auto" href="{% url 'index' %}"><i class="fas fa-cart-shopping"></i>  Continuer vos achats</a>
+        <button type="button" class="btn btn-danger me-auto" data-bs-toggle="modal" data-bs-target="#emptyCart">
+          <i class="fas fa-cart-shopping"></i>  Vider le caddie
+        </button>
+          <a
+            class="btn"
+            href="{% if user.is_authenticated %}{% url 'checkout' %}{% else %}{% url 'account_login' %}{% endif %}"
+            id="btn-validate"
+          >
+            <i class="fas fa-cart-plus"></i>  Valider la commande</a>
+      </div>
+    {% else %}
+    </table>
+    {% endif %}
+  </div>
+
+  <!-- empty cart modal -->
+  <div class="modal fade" id="emptyCart" tabindex="-1" aria-labelledby="emptyCartLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="emptyCartLabel">Vider le caddie</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-danger">
+          <h4>Êtes-vous sûr de vouloir vider votre caddie ?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
+          <a href="{% url 'empty-cart' %}"><button type="button" class="btn btn-danger">Oui</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}SunsetMusicStore | Connexion {% endblock %}
+
+{% block header %}
+        <div class="row">
+          <h1 id="category">Connexion</h1>
+        </div>
+{% endblock %}
+
+{% block body %}
+        <div class="card shadow mx-auto" style="width: 80%;">
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="card-header bg-danger text-white" id="error-field">
+              {% for err in form.non_field_errors %}
+                {{ err }}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div class="card-body">
+              <div class="form-outline form-outline-warning mb-4">
+              {{ form.login|add_css:'form-control form-control-lg shadow-none' }}
+              </div>
+              <div class="form-outline mb-4">
+              {{ form.password|add_css:'form-control form-control-lg shadow-none' }}
+              </div>
+              <div class="row mb-3 fs-5">
+                <div class="col d-flex align-items-center">
+                  <div class="form-check">
+                    {{ form.remember|add_css:'form-check-input bg-warning' }}
+                    {{ form.remember.label }}
+                    <a class="fs-6 small mark" href="{% url 'account_reset_password' %}">Mot de passe oublié ?</a>
+                  </div>
+                </div>
+              </div>
+              {% if redirect_field_value %}
+              {# Redirects to homepage if user is already connected #}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+            </div>
+            <div class="card-footer">
+              <div class="col-sm-3 d-flex">
+                <div>
+                  <span>Pas encore client ?</span>
+                  <a class="secondaryAction" href="{{ signup_url }}">S'enregistrer</a>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-lg btn-warning primaryAction" type="submit">Connexion</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <script src="{% static 'store/js/utils.js' %}"></script>
+{% endblock %}

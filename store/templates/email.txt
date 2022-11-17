@@ -1,0 +1,20 @@
+Bonjour {{ order.user.first_name }} {{ order.user.last_name }},
+
+Votre commande n° {{ order.order_ref }} a bien été prise en compte et vous sera envoyée dans les meilleurs délais à l'adresse suivante :
+
+{{ order.shipping_address.address1 }}
+{%if order.shipping_address.address2 %}{{ order.shipping_address.address2 }}{% endif %}
+{{ order.shipping_address.zipcode }} {{ order.shipping_address.city }}
+
+Récapitulatif
+-------------
+{% for item in details %}{{ item.product.ref }} | {{ item.product.name|truncatechars:25|ljust:25 }} | x{{ item.quantity|rjust:4 }} | {{ item.price|floatformat:2|rjust:10 }}
+{% endfor %}
+------------
+Total : {{ order.total_amount|floatformat:2 }} €
+
+Si vous le désirez vous pouvez consulter l'état d'avancement de votre commande dans votre profil utilisateur.
+
+Merci pour votre confiance et à bientôt !
+
+SunsetMusicStore.

@@ -1,0 +1,30 @@
+{# Fake payment template #}
+{% extends 'base.html' %}
+{% block title %}SunsetMusicStore | Paiement{% endblock %}
+{% block body %}
+        <div class="row">
+          <h1 id="category">Paiement</h1>
+        </div>
+        <div class="card shadow mx-auto" style="width: 80%;">
+          <div class="card-body">
+            <div class="card-title">
+              <h2 style="color: orange;"><strong>PayForever&hearts;&reg;</strong></h2>
+            </div>
+            <div class="card-text">
+              <div class="d-inline-flex align-items-center">
+                <div class="spinner-grow text-danger me-2" style="width: 2em; height: 2em;" role="status">
+                  <span class="visually-hidden">Paiement en cours...</span>
+                </div>
+                <span class="text-danger">Paiement de <span class="fs-5" id="digit">{{ order.total_amount|floatformat:2 }}</span> &euro; en cours...</span>
+              </div>
+              <br>
+              <small class="text-danger"><strong>&#9889; Ne pas éteindre la console ou retirer la carte mémoire !</strong></small>
+            </div>
+            <script type="text/javascript">
+              setTimeout(function() {
+                              window.location.href = "{% url 'thankyou' order.order_ref %}";
+              }, 5000);
+            </script>
+          </div>
+        </div>
+{% endblock %}

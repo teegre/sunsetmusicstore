@@ -1,0 +1,245 @@
+# CATEGORIES
+## GUITARES
+- model: gv_app.Category
+  pk: 1
+  fields:
+    name: Guitares/Basses
+    slug: gtr
+    shortname: Guit/Basses
+- model: gv_app.Category
+  pk: 11
+  fields:
+    name: Guitares électriques
+    slug: gtr-elec
+    parent: 1
+- model: gv_app.Category
+  pk: 12
+  fields:
+    name: Guitares classiques
+    slug: gtr-clas
+    parent: 1
+- model: gv_app.Category
+  pk: 13
+  fields:
+    name: Guitares acoustiques & électro-acoustiques
+    slug: gtr-aco
+    parent: 1
+- model: gv_app.Category
+  pk: 14
+  fields:
+    name: Basses électriques
+    slug: bss-elec
+    parent: 1
+- model: gv_app.Category
+  pk: 15
+  fields:
+    name: Basses acoustiques & semi-acoustiques
+    slug: bss-aco
+    parent: 1
+- model: gv_app.Category
+  pk: 16
+  fields:
+    name: Amplificateurs guitares électriques
+    slug: gtr-amp
+    parent: 1
+- model: gv_app.Category
+  pk: 17
+  fields:
+    name: Effets pour guitares
+    slug: gtr-fx
+    parent: 1
+
+## BATTERIES
+- model: gv_app.Category
+  pk: 2
+  fields:
+    name: Batteries/Percussions
+    slug: batt
+    shortname: Batteries
+- model: gv_app.Category
+  pk: 21
+  fields:
+    name: Batteries acoustiques
+    slug: batt-aco
+    parent: 2
+- model: gv_app.Category
+  pk: 22
+  fields:
+    name: Batteries électroniques
+    slug: batt-electro
+    parent: 2
+- model: gv_app.Category
+  pk: 23
+  fields:
+    name: Cymbales
+    slug: batt-cym
+    parent: 2
+- model: gv_app.Category
+  pk: 24
+  fields:
+    name: Baguettes & maillets
+    slug: batt-bagu
+    parent: 2
+- model: gv_app.Category
+  pk: 25
+  fields:
+    name: Peaux de batterie et percussions
+    slug: batt-peaux
+    parent: 2
+- model: gv_app.Category
+  pk: 26
+  fields:
+    name: Matériel pour batteries et percussions
+    slug: batt-mat
+    parent: 2
+- model: gv_app.Category
+  pk: 27
+  fields:
+    name: Percussions
+    slug: perc
+    parent: 2
+
+## CLAVIERS
+- model: gv_app.Category
+  pk: 3
+  fields:
+    name: Claviers
+    slug: claviers
+    shortname: Claviers
+- model: gv_app.Category
+  pk: 31
+  fields:
+    name: Claviers arrangeurs
+    slug: claviers-arrangeurs
+    parent: 3
+- model: gv_app.Category
+  pk: 32
+  fields:
+    name: Synthétiseurs, workstations & samplers
+    parent: 3
+- model: gv_app.Category
+  pk: 33
+  fields:
+    name: Claviers maîtres
+    parent: 3
+- model: gv_app.Category
+  pk: 34
+  fields:
+    name: Pianos numériques
+    parent: 3
+- model: gv_app.Category
+  pk: 35
+  fields:
+    name: Pianos droits
+    parent: 3
+- model: gv_app.Category
+  pk: 36
+  fields:
+    name: Pianos à queue
+    parent: 3
+- model: gv_app.Category
+  pk: 37
+  fields:
+    name: Amplificateurs pour claviers
+    parent: 3
+
+## STUDIO
+- model: gv_app.Category
+  pk: 4
+  fields:
+    name: Studio & Enregistrement
+    shortname: Studio
+- model: gv_app.Category
+  pk: 41
+  fields:
+    name: Interfaces audio
+    parent: 4
+- model: gv_app.Category
+  pk: 42
+  fields:
+    name: Enceintes de monitoring
+    parent: 4
+- model: gv_app.Category
+  pk: 43
+  fields:
+    name: Microphones
+    parent: 4
+- model: gv_app.Category
+  pk: 44
+  fields:
+    name: Contrôleurs
+    parent: 4
+- model: gv_app.Category
+  pk: 45
+  fields:
+    name: Consoles analogiques
+    parent: 4
+- model: gv_app.Category
+  pk: 46
+  fields:
+    name: Consoles numériques
+    parent: 4
+- model: gv_app.Category
+  pk: 47
+  fields:
+    name: Effets et processeurs de signal
+    parent: 4
+
+## LOGICIELS
+- model: gv_app.Category
+  pk: 5
+  fields:
+    name: Logiciels musicaux
+    shortname: Logiciels
+- model: gv_app.Category
+  pk: 51
+  fields:
+    name: Logiciels séquenceurs et studios virtuels
+    parent: 5
+- model: gv_app.Category
+  pk: 52
+  fields:
+    name: Logiciels de mastering
+    parent: 5
+- model: gv_app.Category
+  pk: 53
+  fields:
+    name: Plugins et effets audio
+    parent: 5
+
+## ACCESSOIRES
+- model: gv_app.Category
+  pk: 6
+  fields:
+    name: Accessoires pour musiciens
+    shortname: Accessoires
+- model: gv_app.Category
+  pk: 61
+  fields:
+    name: Casques audio
+    parent: 6
+- model: gv_app.Category
+  pk: 62
+  fields:
+    name: Accessoires pour ordinateurs
+    parent: 6
+- model: gv_app.Category
+  pk: 63
+  fields:
+    name: Supports de stockage
+    parent: 6
+- model: gv_app.Category
+  pk: 64
+  fields:
+    name: Câbles
+    parent: 6
+- model: gv_app.Category
+  pk: 65
+  fields:
+    name: Câbles jack
+    parent: 64
+- model: gv_app.Category
+  pk: 66
+  fields:
+    name: Câbles XLR
+    parent: 64

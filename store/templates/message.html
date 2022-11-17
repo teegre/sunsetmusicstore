@@ -1,0 +1,17 @@
+{# Toast messages template #}
+{% if messages %}
+<div class="position-relative">
+  <div class="toast-container top-0 end-0" style="bottom: 5%;">
+  {% for message in messages %}
+    <div class="toast show rounded" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex align-items-center message-{{ message.tags }}">
+        <div class="toast-body align-items-center">
+          {{ message|safe }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endif %}

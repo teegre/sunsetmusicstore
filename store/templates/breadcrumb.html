@@ -1,0 +1,35 @@
+{# Breadcrum template #}
+        <div class="row">
+          <nav class="crumbs small">
+            <div class="d-inline-flex align-items-center">
+              <div>
+                <a class="crumb-item" href="{% url 'index' %}">Catégories</a>
+              </div>
+              <span class="crumb-div">&gt;</span>
+              {% for category in ancestors %}
+              <div>
+                <a class="crumb-item" href="{% url 'subcat' category.slug category.id %}">{{ category.shortname }}</a>
+              </div>
+              <span class="crumb-div">&gt;</span>
+              {% endfor %}
+              {% if 'product' in request.build_absolute_uri %}
+              <div>
+                <a class="crumb-item" href="{% url 'subcat' parent.slug parent.id %}">{{ parent.shortname }}</a>
+              </div>
+              <span class="crumb-div">&gt;</span>
+              <div class="crumb-item is-active">
+                {{ product.name }}
+              </div>
+              {% else %}
+              <div class="crumb-item is-active">
+                {{ parent.shortname }}
+              </div>
+              {% endif %}
+            </div>
+          </nav>
+        </div>
+        {% if parent %}
+        <div class="row mb-2">
+          <h1 id="category">{{ parent.name }}</h1>
+        </div>
+        {% endif %}

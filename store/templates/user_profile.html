@@ -1,0 +1,53 @@
+{# User profile #}
+{% extends 'base.html' %}
+{% block title %}SunsetMusicStore | Profil utilisateur{% endblock %}
+{% block header %}
+<div class="row">
+  <h1 id="category">{{ user.first_name }} {{ user.last_name }}</h1>
+</div>
+{% endblock %}
+{% block body %}
+<div class="row">
+  <div class="col-md-4">
+    {% include 'usermenu.html' %}
+  </div>
+  <div class="col">
+    {% if user.billing_address.count == 0 %}
+      Pas d'adresse de facturation
+    {% else %}
+    <div>
+      <div class="row mb-2 rounded" id="product">
+        <div>
+          <i class="fas fa-address-book"></i>  Adresse de facturation
+        </div>
+      </div>
+      <div>
+      {% with address=user.billing_address|first %}
+        {{ address.address1 }}<br>
+        {% if address.address2 %}{{ address.address2 }}<br>{% endif %}
+        {{ address.zipcode }} {{ address.city }}
+      {% endwith %}
+      </div>
+    </div>
+    {% endif %}
+    <div>
+      <div class="row mb-2 rounded" id="product">
+        <div>
+          <i class="fas fa-box-archive"></i>  Adresse de livraison<br>
+        </div>
+      </div>
+    {% if user.shipping_address.count == 0 %}
+      Pas d'adresse de livraison
+    {% else %}
+      <div>
+      {% with address=user.shipping_address|first %}
+        {{ address.address1 }}<br>
+        {% if address.address2 %}{{ address.address2 }}<br>{% endif %}
+        {{ address.zipcode }} {{ address.city }}
+      {% endwith %}
+      </div>
+    {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

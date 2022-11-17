@@ -1,0 +1,94 @@
+{# Home page #}
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}SunsetMusicStore | Home{% endblock %}
+
+{% block header %}
+<div class="row">
+  <h1 class="text-center" id="product"><i class="fas fa-sun"></i>Le Home Studio à la maison.</h1>
+</div>
+{% endblock %}
+
+{% block body %}
+
+{% if products %}
+<!-- New products -->
+<div class="row mt-2 mb-2">
+  <div class="col-sm-6">
+    <div class="mt-2 mb-2">
+      <h2 class="rounded text-center" id="product">Nouveautés</h2>
+    </div>
+    <div id="new-products-carousel" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+      {% for product in products %}
+      {% with id=forloop.counter0 %}
+        <button
+          type="button"
+          data-bs-target="#new-products-carousel"
+          data-bs-slide-to="{{ id }}"
+          {% if id == 0 %}
+          aria-current="true"
+          class="active"
+          {% endif %}
+          aria-label="{{ id }}">
+      {% endwith %}
+        </button>
+      {% endfor %}
+      </div>
+      <div class="carousel-inner">
+        {% for product in products %}
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+          <div class="text-center">
+            <a href="{% url 'product' product.category.slug product.category.id product.ref %}">
+              <img width="400" src="{% static product.pic_static_path %}" alt="{{ product.name }} picture">
+            </a>
+          </div>
+          <div class="carousel-caption bg-light text-dark opacity-75 p-2 rounded">
+            <img src="{% static product.category.icon %}">
+            <span>{{ product.name }}</span>
+            <span class="badge rounded-pill bg-dark fs-5" id="digit">
+              {{ product.price|product_vat:user|floatformat:2 }} &euro;
+              <span class="small">
+                {% if user.business_customer %}HT{% else %}TTC{% endif %}
+              </span>
+            </span>
+            <p>
+              <span class="small">Dans la catégorie <em>{{ product.category.name }}</em></span>
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#new-products-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#new-products-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Catalogue -->
+  <div class="col-sm-6">
+    <div class="mt-2 mb-2">
+      <h2 class="rounded text-center" id="category">Catalogue</h2>
+    </div>
+    <div class="list-group list-group-flush shadow">
+    {% for category in categories %}
+      <a
+        class="list-group-item list-group-item-action fs-4 category-item"
+        href="{% url 'subcat' category.slug category.pk %}">
+        <img src="{% static category.icon %}">  {{ category.name }}
+      </a>
+    {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

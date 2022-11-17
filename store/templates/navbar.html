@@ -1,0 +1,111 @@
+{# Navbar template #}
+{% load static %}
+{% load custom_tags %}
+        <nav>
+          <div class="row" id="navbar">
+            <div class="col-sm-3 d-flex align-items-center">
+            {% if 'accounts' not in request.path %}
+              <button 
+                class="btn btn-lg dropdown-toggle dropdown-toggle-split"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span class="visually-hidden">Toggle dropdown</span>
+                <i class="fas fa-circle-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+              {% for category in categories %}
+                <li>
+                  <a
+                    class="dropdown-item dropdown-item-dark{% if parent.id == category.id %} bg-warning active{% endif %}"
+                    href="{% url 'subcat' category.slug category.id %}"
+                  >
+                    {{ category.shortname }}
+                  </a>
+                </li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+            </div>
+            <div class="col-sm-6 d-flex justify-content-center align-items-center">
+              <a href="{% url 'index' %}"><img src="{% static 'store/logo400.png' %}"></a>
+            </div>
+            <div class="col-sm-3 d-flex align-items-center justify-content-end">
+              <div>
+                <a
+                  class="btn btn-lg"
+                  href="{% url 'cart' %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="Caddie"
+                >
+                    <i class="fas fa-cart-shopping"></i>
+                    <span class="badge bg-danger" id="digit">
+                      {{ request|cart_item_count }}
+                    </span>
+                </a>
+              </div>
+              {% if user.is_authenticated %}
+              <div>
+                <a
+                  class="btn btn-lg" href="{% url 'account_logout' %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="Déconnexion"
+                >
+                  <i class="fas fa-sign-out-alt"></i>
+                </a>
+              </div>
+              <div class="">
+                <a
+                  class="btn btn-lg"
+                  href="{% url 'profile' user.user_id %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="{{ user.first_name }} {{ user.last_name }}"
+                >
+                  <i class="fas fa-user-pen"></i>
+                </a>
+              </div>
+              {% if user.is_staff %}
+              <div>
+                <a 
+                  class="btn btn-lg" 
+                  href="{% url 'admin:index' %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Administration"
+                >
+                  <i class="fas fa-screwdriver-wrench"></i>
+                </a>
+              </div>
+              {% endif %}
+              {% else %}
+              <div>
+                <a
+                  class="btn btn-lg"
+                  href="{% url 'account_login' %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="Connexion"
+                >
+                  <i class="fas fa-sign-in-alt"></i>
+                </a>
+              </div>
+              <div>
+                <a
+                  class="btn btn-lg"
+                  href="{% url 'account_signup' %}"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="Inscription"
+                >
+                  <i class="fas fa-user-plus"></i>
+                </a>
+              </div>
+            {% endif %}
+            </div>
+          </div>
+        </nav>
+        <script src="{% static 'store/js/tooltips.js' %}"></script>

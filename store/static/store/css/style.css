@@ -1,0 +1,182 @@
+@font-face {
+  font-family: "PixelPower";
+  src: url('../fonts/pixel-power-font/PixelPower-G33A.ttf')
+}
+
+@font-face {
+  font-family: "Loja";
+  src: url('../fonts/loja-font/Loja-lgK2q.otf')
+}
+
+@font-face {
+  font-family: "HussarPrint";
+  src: url('../fonts/hussar-print/HussarPrintA.otf')
+}
+
+* {
+  font-family: HussarPrint;
+}
+
+h1, h2, .crumbs a, .crumb-item, .crumb-div {
+  font-family: Loja;
+}
+
+#digit {
+  font-family: PixelPower;
+}
+
+#navbar {
+  background: #FBB947;
+  color: whitesmoke;
+}
+
+a {
+  color: #E67900;
+  text-decoration: none;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+a:hover {
+  color: black;
+  transition: .2s;
+}
+
+.crumbs {
+  background: #F19800;
+  display: inline-flex;
+  overflow-x: scroll;
+}
+
+.crumb-item {
+  background: #F19800;
+  color: whitesmoke;
+  padding: 0 2px;
+  margin: 0 2px;
+  border-radius: 4px;
+}
+
+.crumb-item:hover {
+  background: whitesmoke;
+  color: #F19800;
+}
+
+.crumb-item.is-active {
+  background: #E67900;
+  color: whitesmoke;
+  border-radius: 0;
+}
+
+.crumb-div {
+  color: #FBB947;
+}
+
+#category {
+  background: #E67900;
+  color: whitesmoke;
+}
+
+.category-item:hover {
+  background: #E67900;
+  color: whitesmoke;
+}
+
+#product {
+  background: #F19800;
+  color: wheat;
+}
+
+#description h2 {
+  background: #FBB947;
+  color: white;
+  margin-top: 1ch;
+  border-radius: 4px;
+  padding: 0 0 0 4px;
+}
+
+#description ul {
+  list-style-type: "🌞 " ;
+  list-style-position: inside;
+}
+
+#description li:hover {
+  cursor: default;
+  background: #E67900;
+  color: wheat;
+  border-radius: 4px;
+  transition: .4s;
+}
+
+#btn-validate {
+  background: #FBB947;
+  color: black;
+}
+
+#card-title {
+  background: black;
+  color: whitesmoke;
+}
+
+#card-body {
+  background: whitesmoke;
+}
+
+#card-footer {
+  background: white;
+}
+
+/* FORMS */
+
+.form-control:enabled {
+  background: lightyellow;
+  color: #E67900 ;
+}
+
+#address-option {
+  font-family: Loja;
+}
+
+.errorlist li {
+  font-family: Loja;
+  font-size: smaller;
+  background: orangered;
+  color: white;
+  padding: 0 0 0 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.message-info {
+  background: #F19800;
+  color: whitesmoke;
+}
+
+.message-warning {
+  background: orangered;
+  color: whitesmoke;
+}
+
+.message-error {
+  background: red;
+  color: whitesmoke;
+}
+
+.message-success {
+  background: #F19800;
+  color: white;
+}
+
+#checkout-list {
+  max-height: 46ch;
+  margin-bottom: 10px;
+  overflow: scroll;
+}
+
+ul, footer {
+  list-style: none;
+  display: contents;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

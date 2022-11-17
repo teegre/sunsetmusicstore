@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}SunsetMusicStore | Déconnexion{% endblock %}
+
+{% block header %}
+        <div class="row">
+          <h1 id="category">Déconnexion</h1>
+        </div>
+{% endblock %}
+
+{% block body %}
+        <div class="card shadow mx-auto" style="width: 60%;">
+            <div class="card-body">
+              <span class="fs-5 text-danger">Êtes-vous sûr de vouloir vous déconnecter ?</span>
+            </div>
+          <div class="card-footer">
+            <form method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+              {% endif %}
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-lg btn-warning" type="submit">Se déconnecter</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+{% endblock %}
