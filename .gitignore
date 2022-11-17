@@ -1,0 +1,8 @@
+*.pyc
+*~
+.env*
+.my.cnf
+Session.vim
+__pycache__
+migrations
+venv/
