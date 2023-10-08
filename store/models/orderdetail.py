@@ -1,7 +1,7 @@
 """ OrderDetail model. """
 
 from django.db import models
-from django.urls import reverse
+# from django.urls import reverse
 
 class OrderDetail(models.Model):
   """ A product in an order. """

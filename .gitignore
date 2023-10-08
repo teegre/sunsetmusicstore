@@ -1,6 +1,7 @@
 *.pyc
 *~
 .env*
+db.sql*
 .my.cnf
 Session.vim
 __pycache__
